@@ -53,7 +53,6 @@ class Titlebar : RelativeLayout {
         binding?.rlTitlebarMainLayout?.setVisibility(View.VISIBLE)
         binding?.tvTitle?.text = title
         binding?.ivBack?.visibility = View.GONE
-        binding?.ivCart?.visibility = View.GONE
         binding?.ivSearch?.visibility = View.VISIBLE
         binding?.ivMenu?.visibility = View.VISIBLE
 
@@ -79,9 +78,8 @@ class Titlebar : RelativeLayout {
         binding?.rlTitlebarMainLayout?.setVisibility(View.VISIBLE)
         binding?.tvTitle?.text = title
         binding?.ivBack?.visibility = View.VISIBLE
-        binding?.ivSearch?.visibility = View.GONE
+        binding?.ivSearch?.visibility = View.VISIBLE
         binding?.ivMenu?.visibility = View.GONE
-        binding?.ivCart?.visibility = View.GONE
 
         if (showTitle == 1) {
             binding?.tvTitle?.visibility = View.VISIBLE

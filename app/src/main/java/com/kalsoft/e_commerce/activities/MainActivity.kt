@@ -254,7 +254,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         bottomImage?.setColorFilter(
             ContextCompat.getColor(
                 applicationContext!!,
-                R.color.selected_bottom_color
+                R.color.red_theme_color
             ), android.graphics.PorterDuff.Mode.MULTIPLY
         )
     }

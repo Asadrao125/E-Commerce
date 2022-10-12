@@ -25,7 +25,7 @@ class ProductAdapterHome(var context: MainActivity, var list: ArrayList<Categori
         val categoriesModel: CategoriesModel = list.get(position)
         holder.imgProduct.setImageResource(categoriesModel.drawable)
 
-        holder.mainLayout.setBackgroundColor(context.resources.getColor(Commons.ColorsList(context)))
+        //holder.mainLayout.setBackgroundColor(context.resources.getColor(Commons.ColorsList(context)))
 
         holder.itemView.setOnClickListener {
             context.replaceFragment(

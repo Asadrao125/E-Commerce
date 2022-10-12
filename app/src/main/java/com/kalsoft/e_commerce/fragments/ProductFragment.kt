@@ -32,8 +32,8 @@ class ProductFragment : BaseFragment() {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product, container, false)
 
-        getActivityContext()?.unlockMenu()
-        getActivityContext?.showBttomBar()
+        getActivityContext()?.lockMenu()
+        getActivityContext?.hideBttomBar()
 
         setAdapter()
 
@@ -41,7 +41,7 @@ class ProductFragment : BaseFragment() {
     }
 
     override fun setTitlebar(titlebar: Titlebar) {
-        titlebar.setTitle(getActivityContext!!, "Products", 0)
+        titlebar.setBackTitle(getActivityContext!!, "Products", 0)
     }
 
     private fun setAdapter() {

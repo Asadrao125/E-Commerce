@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data class="HomeFragmentBinding" />
@@ -12,9 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_5sdp"
-            android:paddingLeft="@dimen/_15sdp"
-            android:paddingRight="@dimen/_15sdp"
-            android:paddingBottom="@dimen/_15sdp"
             tools:context=".fragments.HomeFragment">
 
             <LinearLayout
@@ -58,7 +56,8 @@
                         android:layout_height="@dimen/_15sdp"
                         android:layout_below="@id/ic_find"
                         android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_line" />
+                        android:src="@drawable/ic_line"
+                        app:tint="@color/red_theme_color" />
 
                 </RelativeLayout>
 

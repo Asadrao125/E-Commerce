@@ -33,14 +33,16 @@ class CategoryAdapter(var context: MainActivity, var list: ArrayList<CategoriesM
         val categoriesModel: CategoriesModel = list.get(position)
         holder.imgCategory.setImageResource(categoriesModel.drawable)
         holder.tvCategoryName.setText(list.get(position).name)
-        val background: Drawable = holder.layout_layout.getBackground()
+
+        /*val background: Drawable = holder.layout_layout.getBackground()
         if (background is ShapeDrawable) {
             background.paint.color = ContextCompat.getColor(context, Commons.ColorsList(context))
         } else if (background is GradientDrawable) {
             background.setColor(ContextCompat.getColor(context, Commons.ColorsList(context)))
         } else if (background is ColorDrawable) {
             background.color = ContextCompat.getColor(context, Commons.ColorsList(context))
-        }
+        }*/
+
         holder.itemView.setOnClickListener(View.OnClickListener {
             context.replaceFragment(
                 ProductFragment(),

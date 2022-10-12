@@ -24,7 +24,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/llBotomBar"
-                android:layout_below="@+id/titlebar" />
+                android:layout_below="@+id/titlebar"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp" />
 
             <LinearLayout
                 android:id="@+id/llBotomBar"

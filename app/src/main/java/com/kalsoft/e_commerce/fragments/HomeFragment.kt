@@ -18,16 +18,15 @@ import com.kalsoft.e_commerce.adapter.CategoryAdapter
 import com.kalsoft.e_commerce.adapter.ProductAdapterHome
 import com.kalsoft.e_commerce.adapter.ViewPagerAdapter
 import com.kalsoft.e_commerce.databinding.HomeFragmentBinding
+import com.kalsoft.e_commerce.helper.Commons.Companion.getCategoriesList
+import com.kalsoft.e_commerce.helper.Commons.Companion.getSliderImagesList
 import com.kalsoft.e_commerce.helper.Titlebar
-import com.technado.demoapp.models.CategoriesModel
 import java.util.*
 import kotlin.collections.ArrayList
 
 class HomeFragment : BaseFragment() {
     var binding: HomeFragmentBinding? = null
     var dotscount = 0
-    var categoriesList: ArrayList<CategoriesModel>? = ArrayList()
-    var imagesList: ArrayList<Int>? = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,28 +38,16 @@ class HomeFragment : BaseFragment() {
         getActivityContext()?.unlockMenu()
         getActivityContext?.showBttomBar()
 
-        categoriesList?.clear()
-        imagesList?.clear()
-        categoriesList?.add(CategoriesModel("Mobiles", R.drawable.ic_mobile))
-        categoriesList?.add(CategoriesModel("T-Shirts", R.drawable.ic_shirt))
-        categoriesList?.add(CategoriesModel("Shoes", R.drawable.ic_shoes))
-        categoriesList?.add(CategoriesModel("Shorts", R.drawable.ic_shorts))
-        categoriesList?.add(CategoriesModel("Watch", R.drawable.ic_watch))
-
-        imagesList?.add(R.drawable.slide1)
-        imagesList?.add(R.drawable.slide2)
-        imagesList?.add(R.drawable.slide3)
-
         binding?.rvCategories?.layoutManager =
             LinearLayoutManager(getActivityContext!!, LinearLayoutManager.HORIZONTAL, false)
         binding?.rvCategories?.setHasFixedSize(true)
-        binding?.rvCategories?.adapter = CategoryAdapter(getActivityContext!!, categoriesList!!)
+        binding?.rvCategories?.adapter = CategoryAdapter(getActivityContext!!, getCategoriesList())
 
         binding?.rvProducts?.layoutManager = GridLayoutManager(getActivityContext!!, 2)
         binding?.rvProducts?.setHasFixedSize(true)
-        binding?.rvProducts?.adapter = ProductAdapterHome(getActivityContext!!, categoriesList!!)
+        binding?.rvProducts?.adapter = ProductAdapterHome(getActivityContext!!, getCategoriesList())
 
-        setUpSlider(imagesList)
+        setUpSlider(getSliderImagesList())
 
         return binding?.root
     }

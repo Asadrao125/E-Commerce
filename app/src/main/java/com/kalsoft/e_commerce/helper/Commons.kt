@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.kalsoft.e_commerce.R
 import com.squareup.picasso.Picasso
+import com.technado.demoapp.models.CategoriesModel
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -26,5 +27,25 @@ class Commons {
             val r = Random()
             return colorList.get(r.nextInt(colorList.size))
         }
+
+        fun getCategoriesList(): ArrayList<CategoriesModel> {
+            val categoriesList = ArrayList<CategoriesModel>()
+            categoriesList.clear()
+            categoriesList.add(CategoriesModel("Mobiles", R.drawable.ic_mobile))
+            categoriesList.add(CategoriesModel("T-Shirts", R.drawable.ic_shirt))
+            categoriesList.add(CategoriesModel("Shoes", R.drawable.ic_shoes))
+            categoriesList.add(CategoriesModel("Shorts", R.drawable.ic_shorts))
+            categoriesList.add(CategoriesModel("Watch", R.drawable.ic_watch))
+            return categoriesList
+        }
+
+        fun getSliderImagesList(): ArrayList<Int> {
+            val imagesList = ArrayList<Int>()
+            imagesList.add(R.drawable.slide1)
+            imagesList.add(R.drawable.slide2)
+            imagesList.add(R.drawable.slide3)
+            return imagesList
+        }
+
     }
 }

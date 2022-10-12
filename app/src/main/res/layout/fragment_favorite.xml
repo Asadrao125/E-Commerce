@@ -9,7 +9,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="@dimen/_20sdp"
         tools:context=".fragments.FavoriteFragment">
 
         <TextView
