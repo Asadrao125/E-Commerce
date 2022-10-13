@@ -13,6 +13,7 @@ import com.kalsoft.e_commerce.R
 import com.kalsoft.e_commerce.adapter.CartAdapter
 import com.kalsoft.e_commerce.database.Database
 import com.kalsoft.e_commerce.databinding.CartFragmentBinding
+import com.kalsoft.e_commerce.helper.Commons
 import com.kalsoft.e_commerce.helper.Titlebar
 import com.kalsoft.e_commerce.models.Product
 
@@ -40,6 +41,15 @@ class CartFragment : BaseFragment() {
         list = database?.getAllProducts()!!
         productRecyclerView?.adapter = CartAdapter(getActivityContext!!, list)
 
+        binding?.tvSubTotal?.setText("" + calculateTotalAmount(list))
+        binding?.tvTotalPrice?.setText("" + calculateTotalAmount(list))
+
+        Commons.TotalAmount = calculateTotalAmount(list)
+
+        binding?.tvProceedToCheckout?.setOnClickListener {
+            Commons.Toast(getActivityContext!!, "Under Development")
+        }
+
         return binding?.root!!
     }
 
@@ -51,7 +61,6 @@ class CartFragment : BaseFragment() {
         var sum = 0.0
         for (i in list) {
             sum = (sum + (i.price * i.quantity))
-            Log.d("sum_bill_amount", "sum_bill_amount: $sum")
         }
         return sum
     }

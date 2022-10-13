@@ -30,17 +30,24 @@ class ProductAdapter(var context: Context, var list: ArrayList<Product>) :
         val product: Product = list.get(position)
         Commons.LoadImage(product.url, holder.imgProduct)
         holder.tvPrice.setText("" + product.price + " Rs")
-        holder.tvTitle.setText(product.title)
 
         holder.imgAdd.setOnClickListener {
             product.quantity = 1
             val isInserted: Long = database?.insertCategory(product)!!
             if (isInserted > 0) {
-                Commons.Toast(context, "Product Added")
+                holder.tvTitle.setText(product.title + " - Added")
                 holder.imgAdd.isEnabled = false
             } else {
                 Commons.Toast(context, "Failed to add")
             }
+        }
+
+        if (database?.isAdded(product.id.toInt())!!) {
+            holder.imgAdd.isEnabled = false
+            holder.tvTitle.setText(product.title + " - Added")
+        } else {
+            holder.imgAdd.isEnabled = true
+            holder.tvTitle.setText(product.title)
         }
     }
 

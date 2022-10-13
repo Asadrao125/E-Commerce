@@ -8,17 +8,24 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.kalsoft.e_commerce.BaseActivity
 import com.kalsoft.e_commerce.R
 import com.kalsoft.e_commerce.database.Database
 import com.kalsoft.e_commerce.databinding.MainActivityBinding
 import com.kalsoft.e_commerce.dialogFragments.ExitDialog
 import com.kalsoft.e_commerce.fragments.*
+import com.kalsoft.e_commerce.helper.Commons
 import com.kalsoft.e_commerce.helper.Titlebar
+import com.kalsoft.e_commerce.models.Product
 
 class MainActivity : BaseActivity(), View.OnClickListener {
     var binding: MainActivityBinding? = null
     var database: Database? = null
+    var list: ArrayList<Product> = ArrayList()
+    var cartCount = MutableLiveData<Int>()
+    var favCount = MutableLiveData<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +38,44 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         database = Database(this)
         database?.createDatabase()
 
+        list.clear()
+        list = database?.getAllProducts()!!
+        Commons.TotalAmount = calculateTotalAmount(list)
+        //Commons.Toast(this, "" + Commons.TotalAmount)
+        //Commons.Toast(this, "" + list.size)
+        //Commons.Toast(this, "" + database!!.getAllFavProducts(1).size)
+        //Commons.Toast(this, "" + Commons.TotalAmount)
+
+        favCount.value = database!!.getAllFavProducts(1).size
+        favCount.observe(this, Observer {
+            if (it == 0) {
+                binding?.tvFavCount?.visibility = View.GONE
+            } else {
+                binding?.tvFavCount?.visibility = View.VISIBLE
+                binding?.tvFavCount?.setText("" + it)
+            }
+        })
+
+        cartCount.value = database?.getAllProducts()!!.size
+        cartCount.observe(this, Observer {
+            if (it == 0) {
+                binding?.tvCartCount?.visibility = View.GONE
+            } else {
+                binding?.tvCartCount?.visibility = View.VISIBLE
+                binding?.tvCartCount?.setText("" + it)
+            }
+        })
+
         replaceFragment(LoginFragment(), LoginFragment::class.java.simpleName, false, false)
         setTintColor(binding?.imgHome)
+    }
+
+    fun calculateTotalAmount(list: ArrayList<Product>): Double {
+        var sum = 0.0
+        for (i in list) {
+            sum = (sum + (i.price * i.quantity))
+        }
+        return sum
     }
 
     fun setListener() {
@@ -59,20 +102,22 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount >= 1) {
-            val fragmentManager = supportFragmentManager
-            val fragments: List<Fragment> = fragmentManager.fragments
-            val last: Fragment = fragments.get(fragments.size - 1)
-            //clearBackStack()
-            //replaceFragment(HomeFragment(), HomeFragment::class.java.simpleName, false, false)
-            setTintColor(binding?.imgHome)
-            setNormal(binding?.imgCart)
-            setNormal(binding?.imgFavorite)
-            setNormal(binding?.imgProfile)
-            supportFragmentManager.popBackStack()
+        if (binding?.drawerlayout?.isDrawerOpen(GravityCompat.START)!!) {
+            binding?.drawerlayout!!.closeDrawers()
         } else {
-            val exitDialog = ExitDialog()
-            exitDialog.show(supportFragmentManager, "exitDialog")
+            if (supportFragmentManager.backStackEntryCount >= 1) {
+                val fragmentManager = supportFragmentManager
+                val fragments: List<Fragment> = fragmentManager.fragments
+                val last: Fragment = fragments.get(fragments.size - 1)
+                setTintColor(binding?.imgHome)
+                setNormal(binding?.imgCart)
+                setNormal(binding?.imgFavorite)
+                setNormal(binding?.imgProfile)
+                supportFragmentManager.popBackStack()
+            } else {
+                val exitDialog = ExitDialog()
+                exitDialog.show(supportFragmentManager, "exitDialog")
+            }
         }
     }
 

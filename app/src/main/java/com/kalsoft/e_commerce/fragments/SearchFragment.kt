@@ -19,14 +19,14 @@ class SearchFragment : BaseFragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
 
-        getActivityContext()?.unlockMenu()
+        getActivityContext()?.lockMenu()
         getActivityContext?.hideBttomBar()
 
         return binding?.root
     }
 
     override fun setTitlebar(titlebar: Titlebar) {
-        titlebar.setTitle(getActivityContext!!, "Search", 0)
+        titlebar.setBackTitle(getActivityContext!!, "Search", 1)
         titlebar.binding
     }
 }

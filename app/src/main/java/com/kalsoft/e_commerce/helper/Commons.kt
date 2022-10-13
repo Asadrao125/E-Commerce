@@ -15,8 +15,18 @@ import kotlin.collections.ArrayList
 
 class Commons {
     companion object {
+
+        var TotalAmount: Double = 0.0
+        var ShippingAmount: Double = 0.0
+        var CartCount: Int = 0
+        var FavoriteCount: Int = 0
+
         fun LoadImage(url: String, view: ImageView) {
             Picasso.get().load(url).placeholder(R.drawable.ic_launcher_background).into(view)
+        }
+
+        fun LoadImage2(url: String, view: ImageView) {
+            Picasso.get().load(url).placeholder(R.drawable.ic_user_profile).into(view)
         }
 
         fun Toast(context: Context, msg: String) {

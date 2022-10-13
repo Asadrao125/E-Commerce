@@ -57,6 +57,24 @@ class HomeFragment : BaseFragment() {
 
         setUpSlider(getSliderImagesList())
 
+        binding?.tvViewAll?.setOnClickListener {
+            getActivityContext!!.replaceFragment(
+                ProductFragment(),
+                ProductFragment::class.java.simpleName,
+                true,
+                false
+            )
+        }
+
+        binding?.tvViewAllCategories?.setOnClickListener {
+            getActivityContext!!.replaceFragment(
+                ProductFragment(),
+                ProductFragment::class.java.simpleName,
+                true,
+                false
+            )
+        }
+
         return binding?.root
     }
 

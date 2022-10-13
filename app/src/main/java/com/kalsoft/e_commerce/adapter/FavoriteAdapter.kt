@@ -43,9 +43,13 @@ class FavoriteAdapter(var context: Context, var list: ArrayList<Product>) :
         }
 
         holder.imgCross.setOnClickListener {
-            database?.deleteProduct(product.id.toInt())
-            list.removeAt(position)
-            notifyDataSetChanged()
+            val update = database?.updateIsFavorite(product.id.toInt(), 0)
+            if (update!! >= 1) {
+                list.removeAt(position)
+                notifyDataSetChanged()
+            } else {
+                Commons.Toast(context, "Failed To Update")
+            }
         }
     }
 

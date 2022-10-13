@@ -69,7 +69,8 @@ class ProductAdapterHome(var context: MainActivity, var list: ArrayList<Product>
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        //return list.size
+        return 4
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

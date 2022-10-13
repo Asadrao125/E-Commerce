@@ -41,6 +41,9 @@ class CartAdapter(var context: Context, var list: ArrayList<Product>) :
             product.quantity = incCount
             database?.updateProductQuantity(product.id.toInt(), incCount)
             holder.tvCount.setText("" + incCount)
+            holder.tvPrice.setText("" + product.price * incCount + " Rs")
+
+            Commons.TotalAmount = Commons.TotalAmount + product.price
         }
 
         holder.imgMinus.setOnClickListener {
@@ -51,11 +54,14 @@ class CartAdapter(var context: Context, var list: ArrayList<Product>) :
                 product.quantity = decCount
                 database?.updateProductQuantity(product.id.toInt(), decCount)
                 holder.tvCount.setText("" + decCount)
+                holder.tvPrice.setText("" + product.price * decCount + " Rs")
             } else {
                 database?.deleteProduct(product.id.toInt())
                 list.removeAt(position)
                 notifyDataSetChanged()
             }
+
+            Commons.TotalAmount = Commons.TotalAmount - product.price
         }
 
         holder.imgCross.setOnClickListener {

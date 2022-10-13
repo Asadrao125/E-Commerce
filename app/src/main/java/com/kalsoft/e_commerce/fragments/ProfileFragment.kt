@@ -65,7 +65,7 @@ class ProfileFragment : BaseFragment() {
                 tvLastSeen?.setText(user.email)
                 tvAboutInfo?.setText(user.aboutInfo)
                 profilePicUrl = user.profilePic
-                Commons.LoadImage(user.profilePic, profilePic!!)
+                Commons.LoadImage2(user.profilePic, profilePic!!)
             }
 
             override fun onCancelled(@NonNull databaseError: DatabaseError) {}

@@ -67,13 +67,30 @@
                     android:orientation="vertical"
                     android:padding="@dimen/_5sdp">
 
-                    <ImageView
-                        android:id="@+id/imgCart"
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_35sdp"
-                        android:background="@drawable/selector"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_cart" />
+                    <RelativeLayout
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgCart"
+                            android:layout_width="@dimen/_35sdp"
+                            android:layout_height="@dimen/_35sdp"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/selector"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_cart" />
+
+                        <TextView
+                            android:id="@+id/tvCartCount"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/counter_bg"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@color/white" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
@@ -87,13 +104,29 @@
                     android:orientation="vertical"
                     android:padding="@dimen/_5sdp">
 
-                    <ImageView
-                        android:id="@+id/imgFavorite"
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_35sdp"
-                        android:background="@drawable/selector"
-                        android:padding="10dp"
-                        android:src="@drawable/ic_favorite" />
+                    <RelativeLayout
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imgFavorite"
+                            android:layout_width="@dimen/_35sdp"
+                            android:layout_height="@dimen/_35sdp"
+                            android:background="@drawable/selector"
+                            android:padding="10dp"
+                            android:src="@drawable/ic_favorite" />
+
+                        <TextView
+                            android:id="@+id/tvFavCount"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentEnd="true"
+                            android:background="@drawable/counter_bg"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@color/white" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
