@@ -1,112 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/item_cv"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="@dimen/_8sdp">
+        android:layout_marginBottom="@dimen/_5sdp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvImage"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_10sdp">
 
             <ImageView
                 android:id="@+id/imgProduct"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/ic_shoes" />
 
-            <LinearLayout
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_toEndOf="@id/cvImage"
+            android:orientation="vertical">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tvTitle"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:minLines="1"
+                    android:text="Men's Shoes"
+                    android:textColor="@color/red_theme_color"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/imgCross"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:foreground="?selectableItemBackground"
                     android:padding="@dimen/_5sdp"
-                    android:text="Title"
-                    android:textColor="#fbba14"
-                    android:textStyle="bold" />
+                    android:src="@drawable/ic_cross"
+                    app:tint="@android:color/darker_gray" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:minLines="1"
+                android:text="Nike Air Max 90"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Size: "
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="40"
+                    android:textColor="@color/red_theme_color"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Colour: "
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Orange"
+                    android:textColor="@color/red_theme_color"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_2sdp">
 
                 <TextView
                     android:id="@+id/tvPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp"
-                    android:text="Price"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:textStyle="bold" />
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@id/countLayout"
+                    android:text="$100"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:background="@drawable/background_curve_white"
-                android:orientation="horizontal"
-                android:padding="@dimen/_3sdp"
-                android:weightSum="3">
-
-                <ImageView
-                    android:id="@+id/imgMinus"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_weight="1"
-                    android:foreground="?selectableItemBackground"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_minus" />
-
-                <View
-                    android:layout_width="1px"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/darker_gray" />
-
-                <TextView
-                    android:id="@+id/tvCount"
+                <LinearLayout
+                    android:id="@+id/countLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
                     android:gravity="center"
-                    android:text="0"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
 
-                <View
-                    android:layout_width="1px"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/darker_gray" />
+                    <ImageView
+                        android:id="@+id/imgMinus"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:foreground="?selectableItemBackground"
+                        android:padding="@dimen/_5sdp"
+                        android:src="@drawable/ic_minus" />
 
-                <ImageView
-                    android:id="@+id/imgPlus"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_weight="1"
-                    android:foreground="?selectableItemBackground"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:src="@drawable/ic_plus" />
+                    <TextView
+                        android:id="@+id/tvCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/red_theme_color"
+                        android:textSize="16sp" />
 
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/imgPlus"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:foreground="?selectableItemBackground"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:src="@drawable/ic_plus" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
-</RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/darker_gray"
+        android:visibility="gone" />
+
+</LinearLayout>

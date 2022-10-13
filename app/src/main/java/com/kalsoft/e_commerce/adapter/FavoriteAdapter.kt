@@ -13,8 +13,8 @@ import com.kalsoft.e_commerce.database.Database
 import com.kalsoft.e_commerce.helper.Commons
 import com.kalsoft.e_commerce.models.Product
 
-class ProductAdapter(var context: Context, var list: ArrayList<Product>) :
-    RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
+class FavoriteAdapter(var context: Context, var list: ArrayList<Product>) :
+    RecyclerView.Adapter<FavoriteAdapter.MyViewHolder>() {
     var database: Database? = Database(context)
 
     override fun onCreateViewHolder(
@@ -22,25 +22,30 @@ class ProductAdapter(var context: Context, var list: ArrayList<Product>) :
         viewType: Int
     ): MyViewHolder {
         val view: View =
-            LayoutInflater.from(context).inflate(R.layout.item_product, parent, false)
+            LayoutInflater.from(context).inflate(R.layout.item_favorite, parent, false)
         return MyViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val product: Product = list.get(position)
         Commons.LoadImage(product.url, holder.imgProduct)
-        holder.tvPrice.setText("" + product.price + " Rs")
         holder.tvTitle.setText(product.title)
+        holder.tvPrice.setText("" + product.price + " Rs")
 
-        holder.imgAdd.setOnClickListener {
-            product.quantity = 1
-            val isInserted: Long = database?.insertCategory(product)!!
-            if (isInserted > 0) {
-                Commons.Toast(context, "Product Added")
-                holder.imgAdd.isEnabled = false
+        holder.imgFavorite.setOnClickListener {
+            val update = database?.updateIsFavorite(product.id.toInt(), 0)
+            if (update!! >= 1) {
+                list.removeAt(position)
+                notifyDataSetChanged()
             } else {
-                Commons.Toast(context, "Failed to add")
+                Commons.Toast(context, "Failed To Update")
             }
+        }
+
+        holder.imgCross.setOnClickListener {
+            database?.deleteProduct(product.id.toInt())
+            list.removeAt(position)
+            notifyDataSetChanged()
         }
     }
 
@@ -54,15 +59,15 @@ class ProductAdapter(var context: Context, var list: ArrayList<Product>) :
         var imgProduct: ImageView
         var tvTitle: TextView
         var tvPrice: TextView
-        var imgAdd: ImageView
-        var item_cv: CardView
+        var imgCross: ImageView
+        var imgFavorite: ImageView
 
         init {
             imgProduct = itemView.findViewById(R.id.imgProduct)
             tvTitle = itemView.findViewById(R.id.tvTitle)
             tvPrice = itemView.findViewById(R.id.tvPrice)
-            item_cv = itemView.findViewById(R.id.item_cv)
-            imgAdd = itemView.findViewById(R.id.imgAdd)
+            imgCross = itemView.findViewById(R.id.imgCross)
+            imgFavorite = itemView.findViewById(R.id.imgFavorite)
         }
     }
 }

@@ -15,7 +15,6 @@ import com.kalsoft.e_commerce.models.Product
 
 class CartAdapter(var context: Context, var list: ArrayList<Product>) :
     RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
-
     var database: Database? = Database(context)
 
     override fun onCreateViewHolder(
@@ -58,6 +57,12 @@ class CartAdapter(var context: Context, var list: ArrayList<Product>) :
                 notifyDataSetChanged()
             }
         }
+
+        holder.imgCross.setOnClickListener {
+            database?.deleteProduct(product.id.toInt())
+            list.removeAt(position)
+            notifyDataSetChanged()
+        }
     }
 
     override fun getItemViewType(position: Int): Int = position
@@ -72,8 +77,8 @@ class CartAdapter(var context: Context, var list: ArrayList<Product>) :
         var tvPrice: TextView
         var imgMinus: ImageView
         var imgPlus: ImageView
+        var imgCross: ImageView
         var tvCount: TextView
-        var item_cv: CardView
 
         init {
             imgProduct = itemView.findViewById(R.id.imgProduct)
@@ -82,7 +87,7 @@ class CartAdapter(var context: Context, var list: ArrayList<Product>) :
             imgMinus = itemView.findViewById(R.id.imgMinus)
             imgPlus = itemView.findViewById(R.id.imgPlus)
             tvCount = itemView.findViewById(R.id.tvCount)
-            item_cv = itemView.findViewById(R.id.item_cv)
+            imgCross = itemView.findViewById(R.id.imgCross)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.kalsoft.e_commerce.fragments
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,15 +18,23 @@ import com.kalsoft.e_commerce.R
 import com.kalsoft.e_commerce.adapter.CategoryAdapter
 import com.kalsoft.e_commerce.adapter.ProductAdapterHome
 import com.kalsoft.e_commerce.adapter.ViewPagerAdapter
+import com.kalsoft.e_commerce.database.Database
 import com.kalsoft.e_commerce.databinding.HomeFragmentBinding
+import com.kalsoft.e_commerce.helper.Commons
 import com.kalsoft.e_commerce.helper.Commons.Companion.getCategoriesList
 import com.kalsoft.e_commerce.helper.Commons.Companion.getSliderImagesList
 import com.kalsoft.e_commerce.helper.Titlebar
+import com.kalsoft.e_commerce.models.Product
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
 
 class HomeFragment : BaseFragment() {
     var binding: HomeFragmentBinding? = null
+    var database: Database? = null
+    var list: ArrayList<Product> = ArrayList()
     var dotscount = 0
 
     override fun onCreateView(
@@ -37,19 +46,32 @@ class HomeFragment : BaseFragment() {
 
         getActivityContext()?.unlockMenu()
         getActivityContext?.showBttomBar()
+        database = Database(getActivityContext!!)
 
         binding?.rvCategories?.layoutManager =
             LinearLayoutManager(getActivityContext!!, LinearLayoutManager.HORIZONTAL, false)
         binding?.rvCategories?.setHasFixedSize(true)
         binding?.rvCategories?.adapter = CategoryAdapter(getActivityContext!!, getCategoriesList())
 
-        binding?.rvProducts?.layoutManager = GridLayoutManager(getActivityContext!!, 2)
-        binding?.rvProducts?.setHasFixedSize(true)
-        binding?.rvProducts?.adapter = ProductAdapterHome(getActivityContext!!, getCategoriesList())
+        setUpAdapter()
 
         setUpSlider(getSliderImagesList())
 
         return binding?.root
+    }
+
+    private fun setUpAdapter() {
+        list.clear()
+        list = Commons.LoadJSONFromAssets(getActivityContext!!, "products.json")
+
+        binding?.rvProducts?.layoutManager = GridLayoutManager(getActivityContext!!, 2)
+        binding?.rvProducts?.setHasFixedSize(true)
+        binding?.rvProducts?.adapter = ProductAdapterHome(getActivityContext!!, list)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setUpAdapter()
     }
 
     override fun setTitlebar(titlebar: Titlebar) {

@@ -1,5 +1,6 @@
 package com.kalsoft.e_commerce.database
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -88,8 +89,9 @@ class Database(activity: Context) {
 	"productPrice"	REAL,
 	"productTitle"	TEXT,
 	"productUrl"	TEXT,
+	"isFavorite"	INTEGER,
 	PRIMARY KEY("id" AUTOINCREMENT));
-    */
+	*/
 
     fun insertCategory(product: Product): Long {
         var rowId: Long = -1
@@ -101,6 +103,7 @@ class Database(activity: Context) {
             cv.put("productPrice", product.price)
             cv.put("productTitle", product.title)
             cv.put("productUrl", product.url)
+            cv.put("isFavorite", product.isFavorite)
             rowId = sqLiteDatabase!!.insert("product", null, cv)
             close()
         } catch (e: SQLiteException) {
@@ -111,6 +114,7 @@ class Database(activity: Context) {
         return rowId
     }
 
+    @SuppressLint("Range")
     fun getAllProducts(): ArrayList<Product> {
         open()
         val productBeans: ArrayList<Product> = ArrayList()
@@ -126,7 +130,35 @@ class Database(activity: Context) {
                 val price: Double = cursor.getDouble(cursor.getColumnIndex("productPrice"))
                 val title: String = cursor.getString(cursor.getColumnIndex("productTitle"))
                 val url: String = cursor.getString(cursor.getColumnIndex("productUrl"))
-                temp = Product(id.toString(), quantity.toInt(), price, title, url)
+                val isFavorite: Int = cursor.getInt(cursor.getColumnIndex("isFavorite"))
+                temp = Product(id.toString(), quantity.toInt(), price, title, url, isFavorite)
+                productBeans.add(temp)
+                temp = null
+            } while (cursor.moveToNext())
+            close()
+            return productBeans
+        }
+        close()
+        return productBeans
+    }
+
+    @SuppressLint("Range")
+    fun getAllFavProducts(isFavorite: Int): ArrayList<Product> {
+        open()
+        val productBeans: ArrayList<Product> = ArrayList()
+        var temp: Product?
+        val query1 = "SELECT * FROM product WHERE isFavorite = '$isFavorite'"
+        val cursor: Cursor = sqLiteDatabase!!.rawQuery(query1, null)
+        if (cursor.moveToFirst()) {
+            do {
+                val id: Int = cursor.getInt(cursor.getColumnIndex("id"))
+                val productId: String = cursor.getString(cursor.getColumnIndex("productId"))
+                val quantity: String = cursor.getString(cursor.getColumnIndex("productQuantity"))
+                val price: Double = cursor.getDouble(cursor.getColumnIndex("productPrice"))
+                val title: String = cursor.getString(cursor.getColumnIndex("productTitle"))
+                val url: String = cursor.getString(cursor.getColumnIndex("productUrl"))
+                val isFavorite: Int = cursor.getInt(cursor.getColumnIndex("isFavorite"))
+                temp = Product(id.toString(), quantity.toInt(), price, title, url, isFavorite)
                 productBeans.add(temp)
                 temp = null
             } while (cursor.moveToNext())
@@ -159,6 +191,47 @@ class Database(activity: Context) {
         close()
     }
 
+    fun isFavoriteExist(id: Int): Int {
+        open()
+        val query = "SELECT * FROM product WHERE productId = '$id'"
+        val cursor = sqLiteDatabase!!.rawQuery(query, null)
+        return if (cursor?.count!! > 0) cursor.count else 0
+        close()
+    }
+
+    @SuppressLint("Range")
+    fun isFavoriteOrNot(id: Int): Int {
+        open()
+        var isFav = 0
+        val query = "SELECT isFavorite FROM product WHERE productId = '$id'"
+        val cursor = sqLiteDatabase!!.rawQuery(query, null)
+
+        if (cursor.moveToNext()) {
+            do {
+                isFav = cursor.getInt(cursor.getColumnIndex("isFavorite"))
+            } while (cursor.moveToNext())
+        }
+
+        return isFav
+        close()
+    }
+
+    fun updateIsFavorite(id: Int, isFavorite: Int): Int {
+        open()
+        var rows = 0
+        val dataToUpdate = ContentValues()
+        dataToUpdate.put("isFavorite", isFavorite)
+        val where = "id='$id'"
+        try {
+            rows = sqLiteDatabase!!.update("product", dataToUpdate, where, null)
+            println("-- updateIsFavorite rows updated: $rows")
+        } catch (e: Exception) {
+            println("Error UpdateIsFavorite: " + e.printStackTrace())
+        }
+        return rows
+        close()
+    }
+
     fun updateProductQuantity(id: Int, quantity: Int) {
         open()
         val dataToUpdate = ContentValues()
@@ -166,7 +239,7 @@ class Database(activity: Context) {
         val where = "id='$id'"
         try {
             val rows = sqLiteDatabase!!.update("product", dataToUpdate, where, null)
-            println("-- rows updated: $rows")
+            println("-- updateProductQuantity rows updated: $rows")
         } catch (e: Exception) {
             e.printStackTrace()
         }

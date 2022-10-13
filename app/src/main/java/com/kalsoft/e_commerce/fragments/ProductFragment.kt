@@ -64,7 +64,7 @@ class ProductFragment : BaseFragment() {
                     val title = jObject.getString("title")
                     val price = jObject.getDouble("price")
                     val url = jObject.getString("url")
-                    productsList.add(Product(id, 0, price, title, url))
+                    productsList.add(Product(id, 0, price, title, url, 0))
                 }
             } catch (e: JSONException) {
                 e.printStackTrace()

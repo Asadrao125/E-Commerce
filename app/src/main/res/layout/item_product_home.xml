@@ -19,18 +19,19 @@
             <ImageView
                 android:id="@+id/imgProduct"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_80sdp"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:padding="10dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background" />
 
             <ImageView
                 android:id="@+id/imgFavorite"
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
                 android:layout_alignParentEnd="true"
-                android:padding="10dp"
-                android:src="@drawable/ic_favorite_border" />
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/ic_favorite_outlined"
+                app:tint="@color/bottom_bg_color" />
 
         </RelativeLayout>
 

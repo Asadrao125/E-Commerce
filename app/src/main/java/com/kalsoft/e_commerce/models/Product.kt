@@ -5,5 +5,6 @@ class Product(
     var quantity: Int,
     val price: Double,
     var title: String,
-    val url: String
+    val url: String,
+    var isFavorite: Int
 )

@@ -4,8 +4,12 @@ import android.content.Context
 import android.widget.ImageView
 import android.widget.Toast
 import com.kalsoft.e_commerce.R
+import com.kalsoft.e_commerce.models.Product
 import com.squareup.picasso.Picasso
 import com.technado.demoapp.models.CategoriesModel
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -45,6 +49,27 @@ class Commons {
             imagesList.add(R.drawable.slide2)
             imagesList.add(R.drawable.slide3)
             return imagesList
+        }
+
+        fun LoadJSONFromAssets(context: Context, fileName: String): ArrayList<Product> {
+            val productList: ArrayList<Product> = ArrayList()
+            context.assets.open(fileName).bufferedReader().use { reader ->
+                try {
+                    val jsonObj = JSONObject(reader.readText())
+                    val jsonArray: JSONArray = jsonObj.getJSONArray("products")
+                    for (i in 0..jsonArray.length()) {
+                        val jObject = jsonArray.getJSONObject(i)
+                        val id = jObject.getString("id")
+                        val title = jObject.getString("title")
+                        val price = jObject.getDouble("price")
+                        val url = jObject.getString("url")
+                        productList.add(Product(id, 0, price, title, url, 0))
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+            return productList
         }
 
     }

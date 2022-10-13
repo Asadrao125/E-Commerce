@@ -51,7 +51,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     override fun setTitlebar(titlebar: Titlebar) {
-        titlebar.setBackTitle(getActivityContext!!, "Profile", 0)
+        titlebar.setBackTitle(getActivityContext!!, "Profile", 1)
     }
 
     private fun setProfile(id: String) {

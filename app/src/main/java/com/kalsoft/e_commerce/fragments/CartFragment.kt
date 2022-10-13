@@ -2,21 +2,17 @@ package com.kalsoft.e_commerce.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kalsoft.e_commerce.BaseFragment
 import com.kalsoft.e_commerce.R
 import com.kalsoft.e_commerce.adapter.CartAdapter
 import com.kalsoft.e_commerce.database.Database
 import com.kalsoft.e_commerce.databinding.CartFragmentBinding
-import com.kalsoft.e_commerce.databinding.FavoriteFragmentBinding
 import com.kalsoft.e_commerce.helper.Titlebar
 import com.kalsoft.e_commerce.models.Product
 
@@ -38,7 +34,7 @@ class CartFragment : BaseFragment() {
         database = Database(getActivityContext!!)
         productRecyclerView = binding?.cartRecyclerView
 
-        productRecyclerView?.layoutManager = GridLayoutManager(getActivityContext!!, 2)
+        productRecyclerView?.layoutManager = LinearLayoutManager(getActivityContext!!)
         productRecyclerView?.setHasFixedSize(true)
         list.clear()
         list = database?.getAllProducts()!!
@@ -48,7 +44,7 @@ class CartFragment : BaseFragment() {
     }
 
     override fun setTitlebar(titlebar: Titlebar) {
-        titlebar.setBackTitle(getActivityContext!!, "Cart", 0)
+        titlebar.setBackTitle(getActivityContext!!, "Cart", 1)
     }
 
     fun calculateTotalAmount(list: ArrayList<Product>): Double {

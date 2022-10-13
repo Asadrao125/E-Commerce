@@ -8,12 +8,16 @@ import android.widget.RelativeLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.kalsoft.e_commerce.R
 import com.kalsoft.e_commerce.activities.MainActivity
+import com.kalsoft.e_commerce.database.Database
 import com.kalsoft.e_commerce.fragments.ProductFragment
 import com.kalsoft.e_commerce.helper.Commons
+import com.kalsoft.e_commerce.models.Product
 import com.technado.demoapp.models.CategoriesModel
 
-class ProductAdapterHome(var context: MainActivity, var list: ArrayList<CategoriesModel>) :
+class ProductAdapterHome(var context: MainActivity, var list: ArrayList<Product>) :
     RecyclerView.Adapter<ProductAdapterHome.MyViewHolder>() {
+
+    var database: Database? = Database(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view: View =
@@ -22,10 +26,37 @@ class ProductAdapterHome(var context: MainActivity, var list: ArrayList<Categori
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val categoriesModel: CategoriesModel = list.get(position)
-        holder.imgProduct.setImageResource(categoriesModel.drawable)
+        val product: Product = list.get(position)
+        Commons.LoadImage(product.url, holder.imgProduct)
 
-        //holder.mainLayout.setBackgroundColor(context.resources.getColor(Commons.ColorsList(context)))
+        holder.imgFavorite.setOnClickListener {
+            if (!database?.isAdded(product.id.toInt())!!) {
+                holder.imgFavorite.setImageResource(R.drawable.ic_favorite)
+                product.isFavorite = 1
+                product.quantity = 1
+                database?.insertCategory(product)
+            } else {
+                if (database?.isFavoriteOrNot(product.id.toInt()) != 1) {
+                    val updateIsFav = database?.updateIsFavorite(product.id.toInt(), 1)
+                    if (updateIsFav!! > 0) {
+                        Commons.Toast(context, "Added in Favorites")
+                        holder.imgFavorite.setImageResource(R.drawable.ic_favorite)
+                    } else {
+                        Commons.Toast(context, "Failed to unfavorite")
+                    }
+                } else {
+                    Commons.Toast(context, "Remove it from Favorites")
+                }
+            }
+        }
+
+        if (database?.isFavoriteExist(product.id.toInt())!! >= 1) {
+            if (database?.isFavoriteOrNot(product.id.toInt()) == 1) {
+                holder.imgFavorite.setImageResource(R.drawable.ic_favorite)
+            } else {
+                holder.imgFavorite.setImageResource(R.drawable.ic_favorite_outlined)
+            }
+        }
 
         holder.itemView.setOnClickListener {
             context.replaceFragment(
@@ -35,7 +66,6 @@ class ProductAdapterHome(var context: MainActivity, var list: ArrayList<Categori
                 false
             )
         }
-
     }
 
     override fun getItemCount(): Int {
