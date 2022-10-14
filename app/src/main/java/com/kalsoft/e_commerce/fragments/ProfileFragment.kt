@@ -37,7 +37,7 @@ class ProfileFragment : BaseFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
 
         getActivityContext()?.lockMenu()
-        getActivityContext?.hideBttomBar()
+        getActivityContext?.showBttomBar()
 
         tvName = binding?.tvName
         tvEmail = binding?.tvEmail
@@ -51,7 +51,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     override fun setTitlebar(titlebar: Titlebar) {
-        titlebar.setBackTitle(getActivityContext!!, "Profile", 1)
+        titlebar.setTitle(getActivityContext!!, "Profile", 1)
     }
 
     private fun setProfile(id: String) {

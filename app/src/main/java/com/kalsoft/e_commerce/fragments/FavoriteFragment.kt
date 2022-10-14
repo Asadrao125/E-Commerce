@@ -32,7 +32,7 @@ class FavoriteFragment : BaseFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false)
 
         getActivityContext()?.lockMenu()
-        getActivityContext?.hideBttomBar()
+        getActivityContext?.showBttomBar()
 
         database = Database(getActivityContext!!)
 
@@ -47,6 +47,6 @@ class FavoriteFragment : BaseFragment() {
     }
 
     override fun setTitlebar(titlebar: Titlebar) {
-        titlebar.setBackTitle(getActivityContext!!, "Favorite", 1)
+        titlebar.setTitle(getActivityContext!!, "Favorite", 1)
     }
 }

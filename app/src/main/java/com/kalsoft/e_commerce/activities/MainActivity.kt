@@ -67,7 +67,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         })
 
         replaceFragment(LoginFragment(), LoginFragment::class.java.simpleName, false, false)
-        setTintColor(binding?.imgHome)
     }
 
     fun calculateTotalAmount(list: ArrayList<Product>): Double {
@@ -106,13 +105,6 @@ class MainActivity : BaseActivity(), View.OnClickListener {
             binding?.drawerlayout!!.closeDrawers()
         } else {
             if (supportFragmentManager.backStackEntryCount >= 1) {
-                val fragmentManager = supportFragmentManager
-                val fragments: List<Fragment> = fragmentManager.fragments
-                val last: Fragment = fragments.get(fragments.size - 1)
-                setTintColor(binding?.imgHome)
-                setNormal(binding?.imgCart)
-                setNormal(binding?.imgFavorite)
-                setNormal(binding?.imgProfile)
                 supportFragmentManager.popBackStack()
             } else {
                 val exitDialog = ExitDialog()
@@ -159,140 +151,119 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     fun getLastFragment(): Fragment {
         val fragmentManager = supportFragmentManager
         val fragments: List<Fragment> = fragmentManager.fragments
-        val last: Fragment = fragments.get(fragments.size - 1)
-        return last
+        return fragments.get(fragments.size - 1)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.homeLayout -> {
-                clearBackStack()
-                if (!getLastFragment()::class.java.simpleName.toString()
-                        .equals(HomeFragment()::class.java.simpleName)
-                ) {
-                    setTintColor(binding?.imgHome)
-                    setNormal(binding?.imgCart)
-                    setNormal(binding?.imgFavorite)
-                    setNormal(binding?.imgProfile)
-                    replaceFragment(
-                        HomeFragment(),
-                        HomeFragment::class.java.simpleName,
-                        false,
-                        true
-                    )
-                }
+                replaceFragment(
+                    HomeFragment(),
+                    HomeFragment::class.java.simpleName,
+                    false,
+                    true
+                )
             }
 
             R.id.cartLayout -> {
-                if (!getLastFragment()::class.java.simpleName.toString()
-                        .equals(CartFragment()::class.java.simpleName)
-                ) {
-                    setTintColor(binding?.imgCart)
-                    setNormal(binding?.imgHome)
-                    setNormal(binding?.imgFavorite)
-                    setNormal(binding?.imgProfile)
-                    replaceFragment(CartFragment(), CartFragment::class.java.simpleName, true, true)
-                }
+                replaceFragment(
+                    CartFragment(),
+                    CartFragment::class.java.simpleName,
+                    false,
+                    true
+                )
             }
 
             R.id.favoriteLayout -> {
-                if (!getLastFragment()::class.java.simpleName.toString()
-                        .equals(FavoriteFragment()::class.java.simpleName)
-                ) {
-                    setTintColor(binding?.imgFavorite)
-                    setNormal(binding?.imgHome)
-                    setNormal(binding?.imgCart)
-                    setNormal(binding?.imgProfile)
-                    replaceFragment(
-                        FavoriteFragment(),
-                        FavoriteFragment::class.java.simpleName,
-                        true,
-                        true
-                    )
-                }
+                replaceFragment(
+                    FavoriteFragment(),
+                    FavoriteFragment::class.java.simpleName,
+                    false,
+                    true
+                )
             }
 
             R.id.profileLayout -> {
-                if (!getLastFragment()::class.java.simpleName.toString()
-                        .equals(ProfileFragment()::class.java.simpleName)
-                ) {
-                    setTintColor(binding?.imgProfile)
-                    setNormal(binding?.imgHome)
-                    setNormal(binding?.imgCart)
-                    setNormal(binding?.imgFavorite)
-                    replaceFragment(
-                        ProfileFragment(),
-                        ProfileFragment::class.java.simpleName,
-                        true,
-                        true
-                    )
-                }
+                replaceFragment(
+                    ProfileFragment(),
+                    ProfileFragment::class.java.simpleName,
+                    false,
+                    true
+                )
             }
 
             R.id.dlHomeLayout -> {
-                clearBackStack()
-                if (!getLastFragment()::class.java.simpleName.toString()
-                        .equals(HomeFragment()::class.java.simpleName)
-                ) {
-                    setTintColor(binding?.imgHome)
-                    setNormal(binding?.imgCart)
-                    setNormal(binding?.imgFavorite)
-                    setNormal(binding?.imgProfile)
-                    replaceFragment(
-                        HomeFragment(),
-                        HomeFragment::class.java.simpleName,
-                        false,
-                        true
-                    )
-                }
+                replaceFragment(
+                    HomeFragment(),
+                    HomeFragment::class.java.simpleName,
+                    false,
+                    true
+                )
             }
 
             R.id.dlCartLayout -> {
-                if (!getLastFragment()::class.java.simpleName.toString()
-                        .equals(CartFragment()::class.java.simpleName)
-                ) {
-                    setTintColor(binding?.imgCart)
-                    setNormal(binding?.imgHome)
-                    setNormal(binding?.imgFavorite)
-                    setNormal(binding?.imgProfile)
-                    replaceFragment(CartFragment(), CartFragment::class.java.simpleName, true, true)
-                }
+                replaceFragment(
+                    CartFragment(),
+                    CartFragment::class.java.simpleName,
+                    false,
+                    true
+                )
             }
 
             R.id.dlFavoriteLayout -> {
-                if (!getLastFragment()::class.java.simpleName.toString()
-                        .equals(FavoriteFragment()::class.java.simpleName)
-                ) {
-                    setTintColor(binding?.imgFavorite)
-                    setNormal(binding?.imgHome)
-                    setNormal(binding?.imgCart)
-                    setNormal(binding?.imgProfile)
-                    replaceFragment(
-                        FavoriteFragment(),
-                        FavoriteFragment::class.java.simpleName,
-                        true,
-                        true
-                    )
-                }
+                replaceFragment(
+                    FavoriteFragment(),
+                    FavoriteFragment::class.java.simpleName,
+                    false,
+                    true
+                )
             }
 
             R.id.dlProfileLayout -> {
-                if (!getLastFragment()::class.java.simpleName.toString()
-                        .equals(ProfileFragment()::class.java.simpleName)
-                ) {
-                    setTintColor(binding?.imgProfile)
-                    setNormal(binding?.imgHome)
-                    setNormal(binding?.imgCart)
-                    setNormal(binding?.imgFavorite)
-                    replaceFragment(
-                        ProfileFragment(),
-                        ProfileFragment::class.java.simpleName,
-                        true,
-                        true
-                    )
-                }
+                replaceFragment(
+                    ProfileFragment(),
+                    ProfileFragment::class.java.simpleName,
+                    false,
+                    true
+                )
             }
         }
+    }
+
+    fun setBottomImageColors() {
+        if (getLastFragment()::class.java.simpleName.toString()
+                .equals(HomeFragment()::class.java.simpleName)
+        ) {
+            setTintColor(binding?.imgHome)
+            setNormal(binding?.imgCart)
+            setNormal(binding?.imgFavorite)
+            setNormal(binding?.imgProfile)
+        } else if (getLastFragment()::class.java.simpleName.toString()
+                .equals(CartFragment()::class.java.simpleName)
+        ) {
+            setTintColor(binding?.imgCart)
+            setNormal(binding?.imgHome)
+            setNormal(binding?.imgFavorite)
+            setNormal(binding?.imgProfile)
+        } else if (getLastFragment()::class.java.simpleName.toString()
+                .equals(FavoriteFragment()::class.java.simpleName)
+        ) {
+            setTintColor(binding?.imgFavorite)
+            setNormal(binding?.imgHome)
+            setNormal(binding?.imgCart)
+            setNormal(binding?.imgProfile)
+        } else if (getLastFragment()::class.java.simpleName.toString()
+                .equals(ProfileFragment()::class.java.simpleName)
+        ) {
+            setTintColor(binding?.imgProfile)
+            setNormal(binding?.imgHome)
+            setNormal(binding?.imgCart)
+            setNormal(binding?.imgFavorite)
+        }
+    }
+
+    fun closeDrawer() {
+        binding?.drawerlayout?.closeDrawers()
     }
 
     private fun setTintColor(bottomImage: ImageView?) {

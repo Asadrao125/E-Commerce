@@ -30,7 +30,7 @@ class CartFragment : BaseFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false)
 
         getActivityContext()?.lockMenu()
-        getActivityContext?.hideBttomBar()
+        getActivityContext?.showBttomBar()
 
         database = Database(getActivityContext!!)
         productRecyclerView = binding?.cartRecyclerView
@@ -54,7 +54,7 @@ class CartFragment : BaseFragment() {
     }
 
     override fun setTitlebar(titlebar: Titlebar) {
-        titlebar.setBackTitle(getActivityContext!!, "Cart", 1)
+        titlebar.setTitle(getActivityContext!!, "Cart", 1)
     }
 
     fun calculateTotalAmount(list: ArrayList<Product>): Double {
