@@ -27,7 +27,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
         baseFragment = frag
         val transaction = supportFragmentManager.beginTransaction()
-
         if (animate) {
             transaction.setCustomAnimations(
                 R.anim.slide_in_right,
@@ -37,7 +36,6 @@ abstract class BaseActivity : AppCompatActivity() {
             )
         }
         transaction.replace(mainFrameLayoutID, frag)
-
         if (isAddToBackStack) {
             transaction.addToBackStack(null).commit()
         } else {
@@ -45,10 +43,9 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun AddFragment(frag: BaseFragment, tag: String, isAddToBackStack: Boolean, animate: Boolean) {
+    fun addFragment(frag: BaseFragment, tag: String, isAddToBackStack: Boolean, animate: Boolean) {
         baseFragment = frag
         val transaction = supportFragmentManager.beginTransaction()
-
         if (animate) {
             transaction.setCustomAnimations(
                 R.anim.slide_in_right,
@@ -58,7 +55,6 @@ abstract class BaseActivity : AppCompatActivity() {
             )
         }
         transaction.add(mainFrameLayoutID, frag)
-
         if (isAddToBackStack) {
             transaction.addToBackStack(null).commit()
         } else {
